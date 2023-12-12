@@ -1,0 +1,76 @@
+<%- layout('layouts/general') %>
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="card mb-5">
+            <img
+                src="<%= campground.image %>"
+                class="card-img-top"
+                alt="<%= campground.title %>" />
+            <div class="card-body">
+                <h5 class="card-title"><%= campground.title %></h5>
+                <p class="card-text"><%= campground.description %></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><%= campground.location%></li>
+                <li class="list-group-item">$<%= campground.price %>/night</li>
+            </ul>
+            <div class="card-body">
+                <a
+                    href="/campgrounds/<%= campground._id %>/edit"
+                    class="card-link btn btn-primary"
+                    >Edit Campground</a
+                >
+                <form
+                    class="d-inline"
+                    action="/campgrounds/<%= campground.id %>?_method=DELETE"
+                    method="POST">
+                    <button
+                        class="btn btn-danger"
+                        type="Submit">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+        <h2 class="mt-4 mb-3">Leave your review</h2>
+        <form
+            action="/campgrounds/<%= campground._id %>/reviews"
+            method="POST"
+            class="p-3 needs-validation"
+            novalidate>
+            <div class="mb-3">
+                <label
+                    for="rating"
+                    class="form-label"
+                    >Rating</label
+                >
+                <input
+                    class="form-range"
+                    type="range"
+                    id="rating"
+                    name="rating"
+                    min="1"
+                    max="5" />
+            </div>
+            <div class="mb-3">
+                <label
+                    for="body"
+                    class="form-label"
+                    >Review</label
+                >
+                <textarea
+                    class="form-control"
+                    name="body"
+                    id="body"
+                    cols="70"
+                    rows="3"
+                    required></textarea>
+            </div>
+            <button
+                type="submit"
+                class="btn btn-primary">
+                Enviar
+            </button>
+        </form>
+    </div>
+</div>
