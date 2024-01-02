@@ -1,31 +1,32 @@
-const mongoose = require("mongoose");
-const Campground = require("../models/campground");
-const cities = require("./cities");
-const { places, descriptors } = require("./seedHelpers");
+const mongoose = require('mongoose')
+const Campground = require('../models/campground')
+const cities = require('./cities')
+const { places, descriptors } = require('./seedHelpers')
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => console.log("Base de datos conectada."));
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', () => console.log('Base de datos conectada.'))
 
-const sample = (array) => array[Math.floor(Math.random() * array.length)];
+const sample = array => array[Math.floor(Math.random() * array.length)]
 
 const seedDB = async () => {
-	await Campground.deleteMany({});
+    await Campground.deleteMany({})
 
-	for (i = 0; i < 50; i++) {
-		const randCamp = Math.floor(Math.random() * 1000);
-		const price = Math.floor(Math.random() * 50);
+    for (i = 0; i < 50; i++) {
+        const randCamp = Math.floor(Math.random() * 1000)
+        const price = Math.floor(Math.random() * 50)
 
-		const camp = new Campground({
-			title: `${sample(places)} ${sample(descriptors)}`,
-			location: `${cities[randCamp].city}, ${cities[randCamp].state}`,
-			image: "https://source.unsplash.com/collection/483251",
-			description: `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece 
+        const camp = new Campground({
+            author: '658f10d8975c427cb306adfa',
+            title: `${sample(places)} ${sample(descriptors)}`,
+            location: `${cities[randCamp].city}, ${cities[randCamp].state}`,
+            image: 'https://source.unsplash.com/collection/483251',
+            description: `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece 
 			of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor
 			 at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from 
 			 a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the 
@@ -36,10 +37,10 @@ const seedDB = async () => {
 				is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et 
 				Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions 
 				from the 1914 translation by H. Rackham.`,
-			price: price,
-		});
-		await camp.save();
-	}
-};
+            price: price,
+        })
+        await camp.save()
+    }
+}
 
-seedDB().then(() => mongoose.connection.close());
+seedDB().then(() => mongoose.connection.close())
