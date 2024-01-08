@@ -13,15 +13,18 @@ const {
     deleteCampground,
     editCampground,
 } = require('../controllers/campgrounds')
+const multer = require('multer')
+const { storage } = require('../cloudinary/cloudinary')
+const upload = multer({ storage })
 
-router.route('/').get(index).post(isLoggedIn, validateCampground, createCampground)
+router.route('/').get(index).post(isLoggedIn, upload.array('image'), validateCampground, createCampground)
 
 router.get('/new', isLoggedIn, renderNew)
 
 router
     .route('/:id')
     .get(showCampground)
-    .put(isLoggedIn, isAuthor, validateCampground, editCampground)
+    .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, editCampground)
     .delete(isLoggedIn, isAuthor, deleteCampground)
 
 router.get('/:id/edit', isLoggedIn, isAuthor, renderEditCampground)

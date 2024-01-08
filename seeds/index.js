@@ -25,7 +25,12 @@ const seedDB = async () => {
             author: '658f10d8975c427cb306adfa',
             title: `${sample(places)} ${sample(descriptors)}`,
             location: `${cities[randCamp].city}, ${cities[randCamp].state}`,
-            image: 'https://source.unsplash.com/collection/483251',
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/doa6m6shv/image/upload/v1704747319/scvvymlxrlznkpycq0qj.jpg',
+                    filename: 'scvvymlxrlznkpycq0qj',
+                },
+            ],
             description: `Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece 
 			of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor
 			 at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from 
